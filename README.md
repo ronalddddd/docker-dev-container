@@ -42,6 +42,10 @@ ssh root@localhost -p 1234
 
 ## Connecting via Mosh
 
+```sh
+mosh root@localhost -p 6000 --ssh="ssh -p 1234"
+```
+
 - getting a mosh client: https://mosh.org/#getting
 - you need to expose one or more UDP ports in the 6000 to 6100 range for
   mosh clients to connect
