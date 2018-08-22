@@ -2,8 +2,7 @@
 
 A docker container with a vim development environment. 
 
-![Screenshot of vim running in a tmux session]
-(./screenshot.jpeg)
+![Screenshot of vim running in a tmux session](./screenshot.jpeg)
 
 ## Features
 
