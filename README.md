@@ -1,4 +1,4 @@
-# dev-container
+# docker-dev-container
 
 A docker container with a vim development environment. 
 
