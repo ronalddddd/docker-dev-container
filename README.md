@@ -1,15 +1,22 @@
 # docker-dev-container
 
-A docker container with a vim development environment. 
+A containerized vim development environment. 
 
 ![Screenshot of vim running in a tmux session](./screenshot.jpeg)
+
+## Why?
+
+- vim is great :)
+- portable development environment, just mount your projects directory
+- great for pair programming: spin up a container, and `tmux a` into the same session! 
 
 ## Features
 
 - vim 8 customized with plugins and some other configured defaults (see [vimrc](./vimrc))
+- git
 - Mosh 
 - tmux with some light configurations (see [tmux](./tmux.conf))
-- Node.js and TypeScript
+- Node.js and TypeScript, eslint
 - Elixir
 
 ## Quick Start
