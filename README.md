@@ -2,11 +2,14 @@
 
 A docker container with a vim development environment. 
 
+![Screenshot of vim running in a tmux session]
+(./screenshot.jpeg)
+
 ## Features
 
 - vim 8 customized with plugins and some other configured defaults (see [vimrc](./vimrc))
 - Mosh 
-- tmux with some light configurations (see [tmux](./tmux))
+- tmux with some light configurations (see [tmux](./tmux.conf))
 - Node.js and TypeScript
 - Elixir
 
