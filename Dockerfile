@@ -5,7 +5,7 @@ ARG SSH_PASSWORD
 ENV SSH_PASSWORD ${SSH_PASSWORD:-happymeal}
 
 # Install OpenSSH Server, Git, etc...
-RUN apt-get update -y && apt-get install -y openssh-server git
+RUN apt-get update -y && apt-get install -y openssh-server git curl
 
 # Setup SSH Password
 RUN mkdir /var/run/sshd
@@ -77,6 +77,12 @@ RUN /root/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # neofetch - displays system info
 RUN apt-get install -y neofetch
+
+# zsh
+RUN apt-get install -y zsh
+RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN apt-get install fonts-powerline
+RUN chsh -s $(which zsh)
 
 # Start script
 ADD start.sh /root/.
