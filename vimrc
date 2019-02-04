@@ -27,9 +27,13 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-syntastic/syntastic'
 Plugin 'Valloric/YouCompleteMe'
 
-" Elixir
-Plugin 'elixir-editors/vim-elixir'
-Plugin 'slashmili/alchemist.vim'
+" Linter
+Plugin 'w0rp/ale'
+
+" TypeScript
+Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Quramy/vim-js-pretty-template'
 
 " Themes and stuff
 Plugin 'joshdick/onedark.vim'

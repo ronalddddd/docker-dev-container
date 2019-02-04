@@ -22,18 +22,14 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN apt-get update
 RUN apt-get install -y build-essential
 RUN apt-get install -y wget
-RUN wget -qO- https://deb.nodesource.com/setup_8.x | bash -
+RUN wget -qO- https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install --yes nodejs
 ## Install TypeScript
 RUN npm install -g typescript
+## Install yarn
+RUN npm install -g yarn
 ## Eslint
 RUN npm install -g eslint
-
-# Install elixir
-RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && dpkg -i erlang-solutions_1.0_all.deb
-RUN apt-get update
-RUN apt-get install -y esl-erlang
-RUN apt-get install -y elixir
 
 # Project directory
 RUN mkdir /projects
