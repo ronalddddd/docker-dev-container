@@ -79,9 +79,8 @@ RUN /root/.tmux/plugins/tpm/scripts/install_plugins.sh
 RUN apt-get install -y neofetch
 
 # zsh
-RUN apt-get install -y zsh
+RUN apt-get install -y zsh fonts-powerline
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-RUN apt-get install fonts-powerline
 RUN chsh -s $(which zsh)
 
 # Start script
