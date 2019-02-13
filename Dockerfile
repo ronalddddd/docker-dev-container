@@ -83,6 +83,11 @@ RUN apt-get install -y zsh fonts-powerline
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN chsh -s $(which zsh)
 
+# Kompose - convert and run docker compose files as k8s configurations
+RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose
+RUN chmod +x kompose
+RUN mv ./kompose /usr/local/bin/kompose
+
 # Start script
 ADD start.sh /root/.
 
