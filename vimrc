@@ -64,6 +64,10 @@ filetype plugin indent on    " required
 " Encoding
 set encoding=utf-8
 
+" Cursor
+autocmd InsertEnter * set cul
+autocmd InsertLeave * set nocul
+
 " Line numbers
 set relativenumber
 set number
