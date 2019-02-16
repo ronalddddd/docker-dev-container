@@ -16,6 +16,9 @@ Plugin 'scrooloose/nerdtree'
 " Fuzzy file open/finder
 Plugin 'kien/ctrlp.vim'
 
+" Multi-cursor
+Plugin 'terryma/vim-multiple-cursors'
+
 " git wrapper
 Plugin 'tpope/vim-fugitive'
 
