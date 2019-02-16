@@ -109,7 +109,7 @@ let g:syntastic_javascript_eslint_exe = 'eslint .'
 
 " Key Mappings
 " NERDTree Hotkey
-map <silent> <C-n> :NERDTreeFocus<CR>
+map <silent> <C-o> :NERDTreeFocus<CR>
 
 " Auto file reload
 " Triger `autoread` when files changes on disk
