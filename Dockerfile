@@ -1,16 +1,8 @@
 FROM ubuntu:18.04
 MAINTAINER Ronald Ng "https://github.com/ronalddddd"
 
-ARG SSH_PASSWORD
-ENV SSH_PASSWORD ${SSH_PASSWORD:-happymeal}
-
 # Install OpenSSH Server, Git, etc...
 RUN apt-get update -y && apt-get install -y openssh-server git curl
-
-# Setup SSH Password
-RUN mkdir /var/run/sshd
-RUN echo "root:$SSH_PASSWORD" | chpasswd
-RUN sed -i 's/\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
 
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd

@@ -7,25 +7,40 @@ A containerized vim development environment.
 ## Why?
 
 - vim is great :)
-- portable development environment, just mount your projects directory
-- great for pair programming: spin up a container, and `tmux a` into the same session! 
+- Portable development environment, just mount your projects directory
+- Great for pair programming: spin up a container, and `tmux a` into the same session! 
 
 ## Features
 
 - vim 8 customized with plugins and some other configured defaults (see [vimrc](./vimrc))
-- git
-- Mosh 
+  - File Browser (NERDTree)
+  - File quick open (ctrlp)
+  - Multi-cursor (vim-multiple-cursors)
+  - Auto-format (vim-prettier)
+  - Auto-complete (YouCompleteMe)
+  - Syntax checking (syntastic)
+- Mosh - mobile shell eliminates ssh disconnects over unstable networks
 - tmux with some light configurations (see [tmux](./tmux.conf))
-- Node.js and TypeScript, eslint
-- Elixir
+- git
 
 ## Quick Start
+
+- Set environment variable `DEVELOPER_PUBLIC_KEY` with the public key you want to use to SSH into this container
+- Mount a project folder (so you don't lose your work :)
+- (optional) Mount a .ssh folder with required credentials
+  - `authorized_keys` file for logging in
+  - Private keys for accessing  remote repositories, amongst other things...
+- Expose SSH port
+- (optional) Expose Mosh port range (UDP 6000 to 6100)
+
+Example: 
 
 ```sh
 # Start the container
 docker run -d --name dev-env-one \
+  -e DEVELOPER_PUBLIC_KEY=xxxxxx \
   -v /path/to/projects:/projects \
-  -e SSH_PASSWORD="mypassword"   \
+  -v /path/to/ssh:/root/.ssh     \
   -p 1234:22                     \
   ronalddddd/dev-container
 
