@@ -115,6 +115,9 @@ let g:syntastic_javascript_eslint_exe = 'eslint .'
 " NERDTree Hotkey
 map <silent> <C-o> :NERDTreeFocus<CR>
 
+" CtrlP
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 " Auto file reload
 " Triger `autoread` when files changes on disk
 " https://unix.stackexchange.com/questions/149209/refresh-changed-content-of-file-opened-in-vim/383044#383044
