@@ -1,17 +1,10 @@
 FROM ubuntu:18.04
 MAINTAINER Ronald Ng "https://github.com/ronalddddd"
 
-ARG SSH_PASSWORD
-ENV SSH_PASSWORD ${SSH_PASSWORD:-happymeal}
-
 # Install OpenSSH Server, Git, etc...
-RUN apt-get update -y && apt-get install -y openssh-server git
-
-# Setup SSH Password
+RUN apt-get update -y && apt-get install -y openssh-server git curl
+# SSH run dir
 RUN mkdir /var/run/sshd
-RUN echo "root:$SSH_PASSWORD" | chpasswd
-RUN sed -i 's/\#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
-
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
@@ -22,18 +15,14 @@ RUN echo "export VISIBLE=now" >> /etc/profile
 RUN apt-get update
 RUN apt-get install -y build-essential
 RUN apt-get install -y wget
-RUN wget -qO- https://deb.nodesource.com/setup_8.x | bash -
+RUN wget -qO- https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install --yes nodejs
 ## Install TypeScript
 RUN npm install -g typescript
+## Install yarn
+RUN npm install -g yarn
 ## Eslint
 RUN npm install -g eslint
-
-# Install elixir
-RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb && dpkg -i erlang-solutions_1.0_all.deb
-RUN apt-get update
-RUN apt-get install -y esl-erlang
-RUN apt-get install -y elixir
 
 # Project directory
 RUN mkdir /projects
@@ -81,6 +70,16 @@ RUN /root/.tmux/plugins/tpm/scripts/install_plugins.sh
 
 # neofetch - displays system info
 RUN apt-get install -y neofetch
+
+# zsh
+RUN apt-get install -y zsh fonts-powerline
+RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN chsh -s $(which zsh)
+
+# Kompose - convert and run docker compose files as k8s configurations
+RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose
+RUN chmod +x kompose
+RUN mv ./kompose /usr/local/bin/kompose
 
 # Start script
 ADD start.sh /root/.
