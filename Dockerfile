@@ -3,7 +3,8 @@ MAINTAINER Ronald Ng "https://github.com/ronalddddd"
 
 # Install OpenSSH Server, Git, etc...
 RUN apt-get update -y && apt-get install -y openssh-server git curl
-
+# SSH run dir
+RUN mkdir /var/run/sshd
 # SSH login fix. Otherwise user is kicked off after login
 RUN sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
