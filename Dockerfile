@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04:bionic-20191029
 MAINTAINER Ronald Ng "https://github.com/ronalddddd"
 
 ARG SSH_PASSWORD
