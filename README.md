@@ -13,9 +13,9 @@ A containerized vim development environment.
 ## Features
 
 - vim 8 customized with plugins and some other configured defaults (see [vimrc](./vimrc))
-  - File Browser (NERDTree)
-  - File quick open (ctrlp)
-  - Multi-cursor (vim-multiple-cursors)
+  - `ctrl o` File Browser (NERDTree)
+  - `ctrl p` File quick open (ctrlp)
+  - `ctrl n` Multi-cursor (vim-multiple-cursors)
   - Auto-format (vim-prettier)
   - Auto-complete (YouCompleteMe)
   - Syntax checking (syntastic)
@@ -25,17 +25,26 @@ A containerized vim development environment.
 
 ## Quick Start
 
-- Set environment variable `DEVELOPER_PUBLIC_KEY` with the public key you want to use to SSH into this container
-- Mount a project folder (so you don't lose your work :)
-- (optional) Mount a .ssh folder with required credentials
+```shell script
+# Start the conatiner
+docker run -d -e SSH_PASSWORD="supersecret" -p 2233:22 ronalddddd/dev-container
+
+# Shell into it
+ssh root@localhost -p 2233
+```
+
+## Advanced Usages
+- SSH into it using your private key by setting the environment variable `DEVELOPER_PUBLIC_KEY` 
+- Mount a project folder to `/projects` (so you don't lose your work :)
+- Mount a `.ssh` folder with required credentials
   - `authorized_keys` file for logging in
-  - Private keys for accessing  remote repositories, amongst other things...
+  - Private keys for accessing  remote repositories, etc... 
 - Expose SSH port
-- (optional) Expose Mosh port range (UDP 6000 to 6100)
+- Expose Mosh port range (UDP 6000 to 6100)
 
-Example: 
+### Example 
 
-```sh
+```shell script
 # Start the container
 docker run -d --name dev-env-one \
   -e DEVELOPER_PUBLIC_KEY=xxxxxx \
@@ -57,7 +66,7 @@ ssh root@localhost -p 1234
 
 ## Connecting via Mosh
 
-```sh
+```shell script
 mosh root@localhost -p 6000 --ssh="ssh -p 1234"
 ```
 
