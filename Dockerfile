@@ -82,10 +82,21 @@ RUN apt-get install -y zsh fonts-powerline
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN chsh -s $(which zsh)
 
+# kubectl - https://kubernetes.io/docs/tasks/tools/install-kubectl/
+RUN apt-get install -y apt-transport-https
+RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+RUN echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list
+RUN apt-get update
+RUN apt-get install -y kubectl
+
 # Kompose - convert and run docker compose files as k8s configurations
 RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose
 RUN chmod +x kompose
 RUN mv ./kompose /usr/local/bin/kompose
+
+# doctl - DigitalOcean command line tool
+RUN curl -sL https://github.com/digitalocean/doctl/releases/download/v1.34.0/doctl-1.34.0-linux-amd64.tar.gz | tar -xzv
+RUN mv ./doctl /usr/local/bin
 
 # Start script
 ADD start.sh /root/.
