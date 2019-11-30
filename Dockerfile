@@ -98,6 +98,10 @@ RUN mv ./kompose /usr/local/bin/kompose
 RUN curl -sL https://github.com/digitalocean/doctl/releases/download/v1.34.0/doctl-1.34.0-linux-amd64.tar.gz | tar -xzv
 RUN mv ./doctl /usr/local/bin
 
+# fluxctl
+RUN curl -sL https://github.com/fluxcd/flux/releases/download/1.16.0/fluxctl_linux_amd64 > /usr/local/bin/fluxctl
+RUN chmod u+x /usr/local/bin/fluxctl
+
 # Start script
 ADD start.sh /root/.
 

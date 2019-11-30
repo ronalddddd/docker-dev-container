@@ -1,0 +1,17 @@
+version: '3'
+services:
+  dev-container:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    environment:
+      SSH_PASSWORD: "change.me"
+    ports:
+      - "2233:22"
+      - "8080:80"
+      - "8443:443"
+    volumes:
+      - "./data/projects:/projects"
+      - "./data/root/.ssh:/root/.ssh"
+      - "./data/root/.config:/root/.config"
+      - "./data/root/.kube:/root/.kube"
