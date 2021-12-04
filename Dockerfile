@@ -1,8 +1,10 @@
-FROM ubuntu:bionic-20191029
+ARG SSH_PASSWORD
+
+FROM ubuntu:20.04
 MAINTAINER Ronald Ng "https://github.com/ronalddddd"
 
-ARG SSH_PASSWORD
 ENV SSH_PASSWORD ${SSH_PASSWORD:-happymeal}
+ENV DEBIAN_FRONTEND noninteractive
 
 # Install OpenSSH Server, Git, etc...
 RUN apt-get update -y && apt-get install -y openssh-server git curl
@@ -23,15 +25,8 @@ RUN apt-get install -y build-essential
 RUN apt-get install -y wget
 RUN wget -qO- https://deb.nodesource.com/setup_10.x | bash -
 RUN apt-get install --yes nodejs
-## Install TypeScript
-RUN npm install -g typescript
 ## Install yarn
 RUN npm install -g yarn
-## Eslint
-RUN npm install -g eslint
-
-# Project directory
-RUN mkdir /projects
 
 # Vim stuff
 RUN apt-get install -y vim
@@ -51,11 +46,13 @@ RUN mv /tmp/theme1/colors/* /root/.vim/colors/.
 RUN vim +PluginInstall +qall
 
 ## YouCompleteMe
-RUN apt-get install -y build-essential cmake python-dev python3-dev
-RUN /root/.vim/bundle/YouCompleteMe/install.py --js-completer 
+#RUN apt-get install -y build-essential cmake python-dev python3-dev
+#RUN /root/.vim/bundle/YouCompleteMe/install.py --js-completer
 
 ## Create DIR for swap files
+RUN mkdir -p /root/.vim/swap
 RUN mkdir -p /root/.vim/backup
+RUN mkdir -p /root/.vim/undo
 
 # Locale
 RUN apt-get install -y locales
@@ -82,10 +79,41 @@ RUN apt-get install -y zsh fonts-powerline
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN chsh -s $(which zsh)
 
-# Kompose - convert and run docker compose files as k8s configurations
+# Other Linux Tools
+RUN apt install -y net-tools netcat tree fzf bat
+
+# fzf keybindings
+RUN curl https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh > /tmp/key-bindings.zsh
+RUN echo "source /tmp/key-bindings.zsh" >> ~/.zshrc
+
+# DevOps Tools
+
+## Ansible
+RUN apt install -y software-properties-common
+RUN add-apt-repository --yes --update ppa:ansible/ansible
+RUN apt install -y ansible
+
+## Terraform
+RUN apt-get install -y gnupg software-properties-common curl
+RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | apt-key add -
+RUN apt-add-repository --yes "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+RUN apt-get update -y && apt-get install -y terraform
+RUN terraform -install-autocomplete
+
+## Kompose - convert and run docker compose files as k8s configurations
 RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose
 RUN chmod +x kompose
 RUN mv ./kompose /usr/local/bin/kompose
+
+## DigitalOcean CLI (doctl)
+WORKDIR /root
+RUN wget https://github.com/digitalocean/doctl/releases/download/v1.66.0/doctl-1.66.0-linux-amd64.tar.gz
+RUN tar xf ~/doctl-1.66.0-linux-amd64.tar.gz
+RUN mv ~/doctl /usr/local/bin
+
+# Create workspace dir
+RUN mkdir /root/workspace
+WORKDIR /root/workspace
 
 # Start script
 ADD start.sh /root/.

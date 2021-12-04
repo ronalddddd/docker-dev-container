@@ -1,0 +1,9 @@
+version: "3.3"
+services:
+  workspace:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    volumes:
+      - "${WORKSPACE_DIR:-./workspace}:/root/workspace"
+      - "${SSH_DIR:-~/.ssh:/root/.ssh}:ro"

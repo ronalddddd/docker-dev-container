@@ -25,7 +25,7 @@ Plugin 'tpope/vim-fugitive'
 " Syntax and Auto-complete stuff
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'vim-syntastic/syntastic'
-Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 
 " Themes and stuff
 Plugin 'joshdick/onedark.vim'
@@ -91,8 +91,9 @@ set wildmode=list:longest,list:full
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,vendor/gems/*
 
 " Directories for swp files
-set backupdir=~/.vim/backup
-set directory=~/.vim/backup
+set directory=~/.vim/swap//
+set backupdir=~/.vim/backup//
+set backupdir=~/.vim/undo//
 
 " Color Scheme
 set t_Co=256
