@@ -19,15 +19,25 @@ A containerized development environment.
   - Syntax checking (syntastic)
 - Mosh - mobile shell eliminates ssh disconnects over unstable networks
 - tmux with some light configurations (see [tmux](./tmux.conf))
-- doctl -- DigitalOcean's CLI tool
 - node.js and yarn
+- devops/cloud tools
+  - Ansible
+  - Terraform
+  - kubectl
+  - k9s -- Terminal UI for k8s
+  - AWS CLI
+  - doctl -- DigitalOcean's CLI tool
 
 ## Quick Start
 
 ### Connecting via docker-compose
 
+- mounts (read-only) `${SSH_DIR}`, defaults to `~/.ssh`
 - mounts `${WORKSPACE_DIR}`, defaults to `./workspace`
-- mounts (read-only) `${SSH_DIR}`, defaults to `~/.ssh` 
+- mounts various config folders under `./workspace` into home:
+  - `.config`
+  - `.kube`
+  - `.aws`
 
 ```shell
 docker-compose up -d

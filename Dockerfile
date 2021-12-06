@@ -80,7 +80,7 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/too
 RUN chsh -s $(which zsh)
 
 # Other Linux Tools
-RUN apt install -y net-tools netcat tree fzf bat
+RUN apt install -y net-tools netcat tree fzf bat unzip
 
 # fzf keybindings
 RUN curl https://raw.githubusercontent.com/junegunn/fzf/master/shell/key-bindings.zsh > /tmp/key-bindings.zsh
@@ -109,16 +109,19 @@ RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/s
 RUN chmod 700 get_helm.sh
 RUN ./get_helm.sh
 
-## Kompose - convert and run docker compose files as k8s configurations
-RUN curl -L https://github.com/kubernetes/kompose/releases/download/v1.17.0/kompose-linux-amd64 -o kompose
-RUN chmod +x kompose
-RUN mv ./kompose /usr/local/bin/kompose
-
 ## DigitalOcean CLI (doctl)
 WORKDIR /root
 RUN wget https://github.com/digitalocean/doctl/releases/download/v1.66.0/doctl-1.66.0-linux-amd64.tar.gz
 RUN tar xf ~/doctl-1.66.0-linux-amd64.tar.gz
 RUN mv ~/doctl /usr/local/bin
+
+## AWS CLI
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip
+RUN ./aws/install
+
+## k9s
+RUN curl -sS https://webinstall.dev/k9s | bash
 
 # Create workspace dir
 RUN mkdir /root/workspace

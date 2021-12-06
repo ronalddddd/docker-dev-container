@@ -5,5 +5,10 @@ services:
       context: ./
       dockerfile: Dockerfile
     volumes:
-      - "${WORKSPACE_DIR:-./workspace}:/root/workspace"
       - "${SSH_DIR:-~/.ssh:/root/.ssh}:ro"
+      - "${WORKSPACE_DIR:-./workspace}:/root/workspace"
+      - "${WORKSPACE_DIR:-./workspace}/.config:/root/.config"
+      - "${WORKSPACE_DIR:-./workspace}/.kube:/root/.kube"
+      - "${WORKSPACE_DIR:-./workspace}/.aws:/root/.aws"
+    ports:
+      - "8080:8080"
